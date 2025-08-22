@@ -41,7 +41,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <>
       <Navbar />
       <Routes>
         <Route
@@ -71,7 +71,7 @@ function App() {
         {/* Catch-all for undefined routes */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
