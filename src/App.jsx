@@ -58,11 +58,11 @@ function App() {
             </>
           }
         />
-        <Route path="/about" element={<About />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/office-bearers" element={<OfficeBearers />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/help" element={<Help />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Gallery" element={<Gallery />} />
+        <Route path="/Office-bearers" element={<OfficeBearers />} />
+        <Route path="/Contact" element={<Contact />} />
+        <Route path="/Help" element={<Help />} />
 
         {/* If you don’t want /enthusia and /events, remove them */}
         <Route path="/enthusia" element={<NotFoundPage />} />
