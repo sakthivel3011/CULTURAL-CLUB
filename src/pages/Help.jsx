@@ -116,7 +116,26 @@ const Help = () => {
     
     <main className="help-main container">
         <div className="row">
-            
+            <div className="col-lg-8">
+                <section className="help-content">
+                    <h2>Frequently Asked Questions</h2>
+                    <div className="faq-section">
+                        {faqs.map((faq, index) => (
+                            <div key={index} className={`faq-item ${faqActive === index ? 'active' : ''}`}>
+                                <div className="faq-question" onClick={() => toggleFaq(index)}>
+                                    <h3>{faq.question}</h3>
+                                    <span className="faq-toggle">{faqActive === index ? '−' : '+'}</span>
+                                </div>
+                                {faqActive === index && (
+                                    <div className="faq-answer">
+                                        <p>{faq.answer}</p>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            </div>
 
             <div className="col-lg-4">
                 <aside className="help-sidebar">
