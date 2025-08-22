@@ -55,7 +55,6 @@ function App() {
               <Pillars />
               <GroupPhoto />
               <Past />
-              <Footer />
             </>
           }
         />
@@ -72,6 +71,7 @@ function App() {
         {/* Catch-all for undefined routes */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </>
   );
 }
