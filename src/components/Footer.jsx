@@ -1,4 +1,5 @@
 // src/components/Footer.jsx
+import { Link } from "react-router-dom";
 import React from 'react';
 import { FaFacebook, FaEnvelope, FaInstagram, FaLinkedin, FaYoutube, FaArrowRight } from 'react-icons/fa';
 import '../assets/styles/Footer.css';
@@ -42,12 +43,12 @@ const Footer = () => {
             <h3>Quick Links</h3>
             <div className="quicklinks-grid">
               
-              <a href="/about"><FaArrowRight className="link-arrow" /> About</a>
-              <a href="/gallery"><FaArrowRight className="link-arrow" /> Gallery</a>
-              <a href="/events"><FaArrowRight className="link-arrow" /> Events</a>
-              <a href="/office-bearers"><FaArrowRight className="link-arrow" /> Team</a>
-              <a href="/contact"><FaArrowRight className="link-arrow" /> Contact</a>
-              <a href="/help"><FaArrowRight className="link-arrow" /> Help</a>
+              <Link to="/about"><FaArrowRight className="link-arrow" /> About</Link>
+              <Link to="/gallery"><FaArrowRight className="link-arrow" /> Gallery</Link>
+              <Link to="/events"><FaArrowRight className="link-arrow" /> Events</Link>
+              <Link to="/office-bearers"><FaArrowRight className="link-arrow" /> Team</Link>
+              <Link to="/contact"><FaArrowRight className="link-arrow" /> Contact</Link>
+              <Link to="/help"><FaArrowRight className="link-arrow" /> Help</Link>
             </div>
           </div>
         </div>
