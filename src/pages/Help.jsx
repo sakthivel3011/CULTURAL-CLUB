@@ -110,9 +110,6 @@ const Help = () => {
           <p>Since 1998</p>
         </div>
       </header>
-
-      
-
     
     <main className="help-main container">
         <div className="row">
