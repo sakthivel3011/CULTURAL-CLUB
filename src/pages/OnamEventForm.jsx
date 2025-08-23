@@ -26,21 +26,13 @@ const OnamEventForm = () => {
   const teamIdCounters = React.useRef({});
   
   useEffect(() => {
-    if (selectedEvent) {
-      const eventObj = events.find(e => e.id === selectedEvent);
-      const eventCode = eventObj ? eventObj.name.slice(0, 3).toUpperCase() : selectedEvent.slice(0, 3).toUpperCase();
-      
-      if (!teamIdCounters.current[eventCode]) {
-        teamIdCounters.current[eventCode] = 1;
-      } else {
-        teamIdCounters.current[eventCode] += 1;
+      if (selectedEvent) {
+        const eventObj = events.find(e => e.id === selectedEvent);
+        const eventCode = eventObj ? eventObj.name.slice(0, 3).toUpperCase() : selectedEvent.slice(0, 3).toUpperCase();
+        const randomNum = Math.floor(100 + Math.random() * 900); // random 3-digit number (100-999)
+        setTeamId(`${eventCode}-${randomNum}`);
       }
-      
-      const num = teamIdCounters.current[eventCode];
-      const formattedNum = num.toString().padStart(3, '0');
-      setTeamId(`${eventCode}-${formattedNum}`);
-    }
-  }, [selectedEvent]);
+    }, [selectedEvent]);
 
   const handleEventChange = (e) => {
     const eventId = e.target.value;
@@ -136,7 +128,7 @@ const OnamEventForm = () => {
       };
 
       // Replace with your Google Apps Script Web App URL
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbwnxAEoRK9xQo_JUyBK11xUtHa0caFgvWfuuOJQoheKAV6unf4aLwnGefj8Qe157NLL/exec';
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbw6-2qt0YJfjk_x-prqtNNgue5Rv7bE8oV3e4GAAObNmqRV-OIOAVhyGc58jGLLIOF7/exec';
       
       const response = await fetch(scriptURL, {
         method: 'POST',
@@ -221,9 +213,9 @@ const OnamEventForm = () => {
               <div className="members-info-card">
                 <div className="info-icon">ℹ️</div>
                 <p>
-                  {selectedEvent === 'dualDance' && 'Please enter details for both team members (All details required)'}
+                  {selectedEvent === 'dualDance' && 'Please enter details for both team members (All details required) & Only Malayalam Songs are allowed.'}
                   {(selectedEvent === 'pookkolam' || selectedEvent === 'rangoli' || selectedEvent === 'groupSing') && 
-                    'Please enter details for 3-5 team members (First 2 members require all details, others need basic info)'}
+                    'Please enter details for 3-5 team members (First 2 members require all details, others need basic info &  for Dance and Songs Only Malayalam Songs are allowed.)'}
                 </p>
               </div>
 
