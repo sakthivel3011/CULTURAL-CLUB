@@ -1,5 +1,3 @@
-// src/components/Footer.jsx
-
 import React from 'react';
 import { FaFacebook, FaEnvelope, FaInstagram, FaLinkedin, FaYoutube, FaArrowRight } from 'react-icons/fa';
 import '../assets/styles/Footer.css';
