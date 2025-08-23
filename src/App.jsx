@@ -17,6 +17,7 @@ import Loading from "./components/Loading";
 import Contact from "./pages/Contact";
 import NotFoundPage from "./pages/NotFoundPage";
 import Help from "./pages/Help";
+import OnamEventForm from "./pages/OnamEventForm";
 
 import "./index.css";
 import AOS from "aos";
@@ -66,7 +67,7 @@ function App() {
 
         {/* If you don’t want /enthusia and /events, remove them */}
         <Route path="/enthusia" element={<NotFoundPage />} />
-        <Route path="/events" element={<NotFoundPage />} />
+        <Route path="/events" element={<OnamEventForm />} />
 
         {/* Catch-all for undefined routes */}
         <Route path="*" element={<NotFoundPage />} />
