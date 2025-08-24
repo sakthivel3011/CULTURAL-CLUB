@@ -15,7 +15,7 @@ import Gallery from "./pages/Gallery";
 import OfficeBearers from "./pages/OfficeBearers";
 import Loading from "./components/Loading";
 import Contact from "./pages/Contact";
-import NotFoundPage from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 import Help from "./pages/Help";
 import OnamEventForm from "./pages/OnamEventForm";
 
