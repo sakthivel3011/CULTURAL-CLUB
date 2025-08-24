@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import logo from '/logo.png';
 import '../assets/styles/Navbar.css';
-import { Link } from 'react-router-dom';
 
 const ContactPopup = ({ onClose }) => {
   const contacts = [
@@ -73,18 +72,18 @@ const Navbar = () => {
         <div className="navbar-container">
           {/* Logo on the left */}
           <div className="navbar-logo">
-            <Link to="/">
+            <a href="/">
               <img src={logo} alt="Cultural And Music Club Logo" />
-            </Link>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="navbar-links">
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/about" className="nav-link">About</Link>
-            <Link to="/office-bearers" className="nav-link">Office Bearers</Link>
-            <Link to="/gallery" className="nav-link">Gallery</Link>
-            <Link to="/enthusia" className="nav-link">Enthusia</Link>
+            <a href="/" className="nav-link">Home</a>
+            <a href="/event" className="nav-link">Event</a>
+            <a href="/office-bearers" className="nav-link">Office Bearers</a>
+            <a href="/gallery" className="nav-link">Gallery</a>
+            <a href="/enthusia" className="nav-link">Enthusia</a>
             <button className="nav-link contact-btn" onClick={toggleContact}>Contact</button>
           </div>
           <div className="mobile-menu-btn" onClick={toggleMenu}>
@@ -97,11 +96,11 @@ const Navbar = () => {
 
           {/* Mobile Navigation */}
           <div className={`mobile-nav ${isOpen ? 'open' : ''}`}>
-            <Link to="/" className="nav-link" onClick={toggleMenu}>Home</Link>
-            <Link to="#about" className="nav-link" onClick={toggleMenu}>About</Link>
-            <Link to="/office-bearers" className="nav-link" onClick={toggleMenu}>Office Bearers</Link>
-            <Link to="/gallery" className="nav-link" onClick={toggleMenu}>Gallery</Link>
-            <Link to="/enthusia" className="nav-link" onClick={toggleMenu}>Enthusia</Link>
+            <a href="/" className="nav-link" onClick={toggleMenu}>Home</a>
+            <a href="/event" className="nav-link" onClick={toggleMenu}>Event</a>
+            <a href="/office-bearers" className="nav-link" onClick={toggleMenu}>Office Bearers</a>
+            <a href="/gallery" className="nav-link" onClick={toggleMenu}>Gallery</a>
+            <a href="/enthusia" className="nav-link" onClick={toggleMenu}>Enthusia</a>
             <button className="nav-link contact-btn" onClick={() => {
               toggleContact();
               toggleMenu();

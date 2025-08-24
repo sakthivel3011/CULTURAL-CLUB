@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../assets/styles/UpcomingEvents.css'; // Assuming you have a CSS file for styling
 import video from '../assets/videos/final.mp4';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 const UpcomingEvents = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -14,28 +16,28 @@ const UpcomingEvents = () => {
     });
   }, []);
 
+  // Events listed here are open to everyone and are not restricted to KEC students. 
+  // These are outside the college curriculum, focusing on activities like dance, music, and art.
   const events = [
     {
       id: 1,
-      title: "Cultural ",
-      date: "June 20-21, 2023",
-      description: "Join us for a spectacular cultural extravaganza with music, dance, and art from around the world.",
-      price: "FREE",
-      
+      title: "Sketch-2k25",
+      date: "September, 2025",
+      description: "A spectacular cultural extravaganza featuring music, dance, and art from around the world. Open to all, not for KEC students.",
+      price: "RS 500",
     },
     {
       id: 2,
-      title: "Father's Day Special",
-      date: "June 18, 2023",
-      description: "Celebrate Father's Day with fun activities, games, and special performances dedicated to all fathers.",
+      title: "Raaga-2k25",
+      date: "November, 2025",
+      description: " Group singing competition for KEC students only. Form your group and showcase your talent.",
       price: "FREE",
-      
     },
     {
       id: 3,
-      title: "Summer Festival",
-      date: "July 15-17, 2023",
-      description: "Experience the best of summer with food, music, and outdoor activities for the whole family.",
+      title: "Enthusia-2k25",
+      date: "January, 2025",
+      description: "The biggest 2-day cultural event in KEC! Open only for KEC students. Experience music, dance, art, and more.",
       price: "FREE",
     }
   ];
@@ -70,7 +72,7 @@ const UpcomingEvents = () => {
                 <p className="event-description">{event.description}</p>
                 <div className="event-footer">
                   <span className="event-price">{event.price}</span>
-                  <button className="register-btn">Register Soon</button>
+                  <button className="register-btn" onClick={() => navigate('/event')}>Register Soon</button>
                 </div>
               </div>
             </div>

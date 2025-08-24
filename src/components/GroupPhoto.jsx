@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import '../assets/styles/GroupPhoto.css'; // Assuming you have a CSS file for styling
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import groupPhoto from '../assets/images/group24.png'; // Make sure to add your image
+import groupPhoto from '../assets/images/group25.jpg'; // Make sure to add your image
 
 const GroupPhoto = () => {
   useEffect(() => {
@@ -33,5 +33,5 @@ return (
     </section>
 );
 };
-
+    
 export default GroupPhoto;

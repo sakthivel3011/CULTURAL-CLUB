@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/styles/OfficeBearers.css'; // Import your CSS styles
-import Footer from '../components/Footer.jsx'
+
 
 
 const OfficeBearers = () => {
