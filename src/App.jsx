@@ -59,7 +59,7 @@ function App() {
             </>
           }
         />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<OnamEventForm />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/office-bearers" element={<OfficeBearers />} />
         <Route path="/contact" element={<Contact />} />

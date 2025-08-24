@@ -9,9 +9,8 @@ const OnamEventForm = () => {
   // Event details
   const eventDetails = {
     title: "Onam 2025 Celebration",
-    
-    
-    venue: "Swami Vivekananda Seminar Hall(MECH)",
+
+    venue: "Swami Vivekananda Seminar Hall (MECH)",
     description: "Get ready for our biggest event of the year with amazing performances, food, and fun!"
   };
 
