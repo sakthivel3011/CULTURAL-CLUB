@@ -85,6 +85,13 @@ const Hero = () => {
 
   return (
     <section className="hero">
+      {/* Preload hero images for faster display */}
+      <div style={{display: 'none'}}>
+        <img src={heroImages[0]} alt="" loading="eager" />
+        {heroImages.slice(1).map((img, idx) => (
+          <img key={idx} src={img} alt="" loading="lazy" />
+        ))}
+      </div>
       {/* Background images with transition */}
       {heroImages.map((image, index) => (
         <div 

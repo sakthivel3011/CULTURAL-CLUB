@@ -27,10 +27,13 @@ import S9 from "../assets/images/Gallery/S/9.JPG";
 
 import BGImage from "../assets/images/Gallery/A/5.jpg";
 import Footer from '../components/Footer.jsx';
+import Loading from '../components/Loading.jsx';
 
 const Gallery = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoveredImage, setHoveredImage] = useState(null);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AOS.init({
@@ -49,7 +52,10 @@ const Gallery = () => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+    if (imagesLoaded === galleryImages.length) {
+      setLoading(false);
+    }
+  }, [imagesLoaded]);
 
   const galleryImages = [
     { id: 1, src: F1, size: 'medium' },
@@ -78,54 +84,57 @@ const Gallery = () => {
 
   return (
     <>
+      {loading && <Loading />}
       {/* Custom Cursor */}
       <div 
         className={`custom-cursor ${hoveredImage ? 'cursor-hover' : ''}`}
         style={{ left: `${cursorPosition.x}px`, top: `${cursorPosition.y}px` }}
       />
 
-      <section className="modern-gallery">
-        {/* Background with parallax effect */}
-        <div 
-          className="gallery-background" 
-          style={{ backgroundImage: `url(${BGImage})` }}
-        />
-        
-        <div className="gallery-overlay" />
-        
-        <div className="gallery-content">
-          <h1 className="gallery-main-title" data-aos="fade-down">
-            Our <span className="highlight">Memories</span>
-          </h1>
-          <p className="gallery-subtitle" data-aos="fade-down" data-aos-delay="200">
-            Capturing the spirit of our institution
-          </p>
+      {!loading && (
+        <section className="modern-gallery">
+          {/* Background with parallax effect */}
+          <div 
+            className="gallery-background" 
+            style={{ backgroundImage: `url(${BGImage})` }}
+          />
+          
+          <div className="gallery-overlay" />
+          
+          <div className="gallery-content">
+            <h1 className="gallery-main-title" data-aos="fade-down">
+              Our <span className="highlight">Memories</span>
+            </h1>
+            <p className="gallery-subtitle" data-aos="fade-down" data-aos-delay="200">
+              Capturing the spirit of our institution
+            </p>
 
-          <div className="masonry-gallery">
-            {galleryImages.map((image, index) => (
-              <div 
-                key={image.id}
-                className={`gallery-item ${image.size}`}
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-                onMouseEnter={() => setHoveredImage(image.id)}
-                onMouseLeave={() => setHoveredImage(null)}
-              >
-                <div className="image-wrapper">
-                  <img
-                    src={image.src}
-                    alt=""
-                    className="gallery-image"
-                    loading="lazy"
-                  />
+            <div className="masonry-gallery">
+              {galleryImages.map((image, index) => (
+                <div 
+                  key={image.id}
+                  className={`gallery-item ${image.size}`}
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                  onMouseEnter={() => setHoveredImage(image.id)}
+                  onMouseLeave={() => setHoveredImage(null)}
+                >
+                  <div className="image-wrapper">
+                    <img
+                      src={image.src}
+                      alt=""
+                      className="gallery-image"
+                      loading="lazy"
+                      onLoad={() => setImagesLoaded((count) => count + 1)}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-      
-   
+        </section>
+      )}
+      <Footer />
     </>
   );
 };
