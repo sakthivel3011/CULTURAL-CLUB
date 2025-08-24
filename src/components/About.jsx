@@ -40,16 +40,16 @@ const About = () => {
 
         <div className="stats-container" data-aos="fade-up" data-aos-delay="700">
           <div className="stat-item">
-            <span className="stat-number">200+</span>
+            <span className="stat-number">4</span>
+            <span className="stat-label">Faculty Coordinator</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-number">100+</span>
             <span className="stat-label">Members</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">50+</span>
+            <span className="stat-number">10+</span>
             <span className="stat-label">Events Yearly</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">15</span>
-            <span className="stat-label">Art Forms</span>
           </div>
         </div>
       </div>
