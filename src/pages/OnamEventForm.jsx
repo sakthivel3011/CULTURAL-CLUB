@@ -39,7 +39,7 @@ const NotFoundPage = () => {
   // Countdown timer with redirect
   const navigate = useNavigate();
   useEffect(() => {
-    const eventDate = new Date('2025-08-24T21:40:00').getTime();
+    const eventDate = new Date('2025-08-23T00:00:00').getTime();
 
     const updateTimer = () => {
       const now = Date.now();
@@ -48,7 +48,7 @@ const NotFoundPage = () => {
       if (distance <= 0) {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         // Redirect to OnamEventForm page
-        navigate('/onameventform');
+        navigate('/');
         return;
       }
 

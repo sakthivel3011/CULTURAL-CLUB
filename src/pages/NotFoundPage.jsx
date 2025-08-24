@@ -40,7 +40,7 @@ const NotFoundPage = () => {
   // Countdown timer
   useEffect(() => {
     // Use an ISO date string for reliable parsing across browsers
-    const eventDate = new Date('2025-08-24T08:40:00').getTime();
+    const eventDate = new Date('2025-08-22T09:00:00').getTime();
 
     const updateTimer = () => {
       const now = Date.now();
@@ -49,7 +49,7 @@ const NotFoundPage = () => {
       if (distance <= 0) {
         // Event passed — ensure UI shows zeros
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        navigate('/events');
+        navigate('/OnamEventForm');
         return;
       }
 
