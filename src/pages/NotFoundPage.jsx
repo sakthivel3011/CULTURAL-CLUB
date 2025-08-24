@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaMusic, FaCalendarAlt, FaMapMarkerAlt, FaEnvelope as FaMail, FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../assets/styles/NotFoundPage.css'; // We'll create this CSS file
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
   // Event details
   const eventDetails = {
     title: "Onam 2025 Celebration",
@@ -47,6 +49,7 @@ const NotFoundPage = () => {
       if (distance <= 0) {
         // Event passed — ensure UI shows zeros
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        navigate('/events');
         return;
       }
 
@@ -63,7 +66,7 @@ const NotFoundPage = () => {
     const timer = setInterval(updateTimer, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [navigate]);
 
   // Handle email submission
   const handleSubmit = (e) => {
