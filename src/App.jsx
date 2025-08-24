@@ -66,7 +66,7 @@ function App() {
         <Route path="/help" element={<Help />} />
 
         {/* If you don’t want /enthusia and /events, remove them */}
-        <Route path="/enthusia" element={<NotFoundPage />} />
+        <Route path="/enthusia" element={<OnamEventForm />} />
         <Route path="/events" element={<OnamEventForm />} />
 
         {/* Catch-all for undefined routes */}

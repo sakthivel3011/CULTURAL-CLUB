@@ -38,7 +38,7 @@ const NotFoundPage = () => {
   // Countdown timer
   useEffect(() => {
     // Use an ISO date string for reliable parsing across browsers
-    const eventDate = new Date('2025-08-24T21:30:00').getTime();
+    const eventDate = new Date('2025-08-25T09:00:00').getTime();
 
     const updateTimer = () => {
       const now = Date.now();
