@@ -15,7 +15,7 @@ import Gallery from "./pages/Gallery";
 import OfficeBearers from "./pages/OfficeBearers";
 import Loading from "./components/Loading";
 import Contact from "./pages/Contact";
-import NotFoundPage from "./pages/NotFoundPage";
+import NotFoundPage from "./pages/NotFound";
 import Help from "./pages/Help";
 import OnamEventForm from "./pages/OnamEventForm";
 
@@ -61,15 +61,15 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/office-bearers" element={<OfficeBearers />} />
+        <Route path="/office-bearers" element={<NotFound />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/help" element={<Help />} />
 
         {/* If you don’t want /enthusia and /events, remove them */}
         <Route path="/enthusia" element={<OnamEventForm />} />
-        <Route path="/event" element={<NotFoundPage />} />
+        <Route path="/event" element={<NotFound />} />
         {/* Catch-all for undefined routes */}
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>
