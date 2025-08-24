@@ -102,12 +102,6 @@ const Gallery = () => {
           </p>
 
           <div className="masonry-gallery">
-            {/* Preload gallery images for faster display */}
-            <div style={{display: 'none'}}>
-              {galleryImages.map((img, idx) => (
-                <img key={idx} src={img.src} alt="" loading="eager" />
-              ))}
-            </div>
             {galleryImages.map((image, index) => (
               <div 
                 key={image.id}
@@ -122,7 +116,7 @@ const Gallery = () => {
                     src={image.src}
                     alt=""
                     className="gallery-image"
-                    loading="eager"
+                    loading="auto"
                   />
                 </div>
               </div>
@@ -131,7 +125,6 @@ const Gallery = () => {
         </div>
       </section>
       
-      <Footer />
     </>
   );
 };
