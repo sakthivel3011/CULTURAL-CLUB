@@ -49,7 +49,7 @@ const NotFoundPage = () => {
       if (distance <= 0) {
   // Event passed — ensure UI shows zeros
   setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  navigate('/events');
+  navigate('/OnamEventForm');
   return;
       }
 

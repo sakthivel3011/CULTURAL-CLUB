@@ -48,7 +48,7 @@ const NotFoundPage = () => {
       if (distance <= 0) {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         // Redirect to OnamEventForm page
-        navigate('/');
+        navigate('/OnamEventForm');
         return;
       }
 

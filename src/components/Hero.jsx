@@ -82,7 +82,7 @@ const Hero = () => {
 
   const handleEventClick = () => {
     // Navigate to events page
-    navigate('/event');
+    navigate('/OnamEventForm');
   };
 
   return (

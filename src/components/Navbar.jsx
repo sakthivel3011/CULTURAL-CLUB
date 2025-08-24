@@ -80,7 +80,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="navbar-links">
             <a href="/" className="nav-link">Home</a>
-            <a href="/event" className="nav-link">Event</a>
+            <a href="/events" className="nav-link">Events</a>
             <a href="/office-bearers" className="nav-link">Office Bearers</a>
             <a href="/gallery" className="nav-link">Gallery</a>
             <a href="/enthusia" className="nav-link">Enthusia</a>
@@ -97,7 +97,7 @@ const Navbar = () => {
           {/* Mobile Navigation */}
           <div className={`mobile-nav ${isOpen ? 'open' : ''}`}>
             <a href="/" className="nav-link" onClick={toggleMenu}>Home</a>
-            <a href="/event" className="nav-link" onClick={toggleMenu}>Event</a>
+            <a href="/events" className="nav-link" onClick={toggleMenu}>Events</a>
             <a href="/office-bearers" className="nav-link" onClick={toggleMenu}>Office Bearers</a>
             <a href="/gallery" className="nav-link" onClick={toggleMenu}>Gallery</a>
             <a href="/enthusia" className="nav-link" onClick={toggleMenu}>Enthusia</a>
