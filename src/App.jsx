@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 // App.jsx
 import { useState, useEffect } from "react";
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -26,9 +25,6 @@ import "aos/dist/aos.css";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-  // Set your event end date here
-  const eventEndDate = new Date('2025-08-23T00:00:00').getTime();
 
   useEffect(() => {
     // Initialize AOS animations
@@ -41,18 +37,6 @@ function App() {
   const timer = setTimeout(() => setIsLoading(false), 1000);
   return () => clearTimeout(timer);
   }, []);
-
-    // Timer logic to redirect to OnamEventForm when time is over
-    useEffect(() => {
-      const checkTime = () => {
-        const now = Date.now();
-        if (now > eventEndDate) {
-          navigate('/events');
-        }
-      };
-      const interval = setInterval(checkTime, 1000);
-      return () => clearInterval(interval);
-    }, [navigate]);
 
   if (isLoading) {
     return <Loading />;
@@ -82,8 +66,8 @@ function App() {
         <Route path="/help" element={<Help />} />
 
         {/* If you don’t want /enthusia and /events, remove them */}
-        <Route path="/enthusia" element={<NotFoundPage />} />
-        <Route path="/events" element={<OnamEventForm />} />
+        <Route path="/enthusia" element={<OnamEventForm />} />
+        <Route path="/event" element={<NotFoundPage />} />
         {/* Catch-all for undefined routes */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

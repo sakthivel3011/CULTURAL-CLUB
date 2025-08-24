@@ -1,178 +1,375 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaMusic, FaCalendarAlt, FaMapMarkerAlt, FaEnvelope as FaMail, FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import '../assets/styles/OnamEventForm.css';
 import AOS from 'aos';
-import 'aos/dist/aos.css';
-import '../assets/styles/OnamEventForm.css'; // We'll create this CSS file
 
 const OnamEventForm = () => {
-  // Event details
-  const eventDetails = {
-    title: "Onam 2025 Celebration",
+  const [selectedEvent, setSelectedEvent] = useState('');
+  const [teamMembers, setTeamMembers] = useState([{ name: '', rollNo: '', dept: '', year: '', phone: '', email: '' }]);
+  const [teamId, setTeamId] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    venue: "Swami Vivekananda Seminar Hall (MECH)",
-    description: "Get ready for our biggest event of the year with amazing performances, food, and fun!"
-  };
+  const events = [
+    { id: 'dualDance', name: 'Dual Dance', minMembers: 2, maxMembers: 2 },
+    { id: 'pookkolam', name: 'Pookkolam', minMembers: 3, maxMembers: 5 },
+    { id: 'rangoli', name: 'Rangoli', minMembers: 3, maxMembers: 5 },
+    { id: 'groupSing', name: 'Group Singing', minMembers: 3, maxMembers: 5 }
+  ];
 
-  // Countdown state
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
-
-  // Email state
-  const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Initialize AOS
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true,
-      easing: 'ease-out-cubic'
+      offset: 100,
     });
   }, []);
 
-  // Countdown timer with redirect
-  const navigate = useNavigate();
+  const teamIdCounters = React.useRef({});
+  
   useEffect(() => {
-    const eventDate = new Date('2025-08-23T00:00:00').getTime();
-
-    const updateTimer = () => {
-      const now = Date.now();
-      const distance = eventDate - now;
-
-      if (distance <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        // Redirect to OnamEventForm page
-        navigate('/OnamEventForm');
-        return;
+      if (selectedEvent) {
+        const eventObj = events.find(e => e.id === selectedEvent);
+        const eventCode = eventObj ? eventObj.name.slice(0, 3).toUpperCase() : selectedEvent.slice(0, 3).toUpperCase();
+        const randomNum = Math.floor(100 + Math.random() * 900); // random 3-digit number (100-999)
+        setTeamId(`${eventCode}-${randomNum}`);
       }
+    }, [selectedEvent]);
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      setTimeLeft({ days, hours, minutes, seconds });
-    };
-
-    updateTimer();
-    const timer = setInterval(updateTimer, 1000);
-
-    return () => clearInterval(timer);
-  }, [navigate]);
-
-  // Handle email submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const handleEventChange = (e) => {
+    const eventId = e.target.value;
+    setSelectedEvent(eventId);
     
-    // Simulate API call
+    const selectedEventObj = events.find(event => event.id === eventId);
+    if (selectedEventObj) {
+      const initialMembers = Array(selectedEventObj.minMembers).fill().map(() => (
+        { name: '', rollNo: '', dept: '', year: '', phone: '', email: '' }
+      ));
+      setTeamMembers(initialMembers);
+    }
+  };
+
+  const handleMemberChange = (index, field, value) => {
+    const updatedMembers = [...teamMembers];
+    updatedMembers[index][field] = value;
+    setTeamMembers(updatedMembers);
+  };
+
+  const addMember = () => {
+    const selectedEventObj = events.find(event => event.id === selectedEvent);
+    if (selectedEventObj && teamMembers.length < selectedEventObj.maxMembers) {
+      setTeamMembers([...teamMembers, { name: '', rollNo: '', dept: '', year: '', phone: '', email: '' }]);
+    }
+  };
+
+  const removeMember = (index) => {
+    const selectedEventObj = events.find(event => event.id === selectedEvent);
+    if (selectedEventObj && teamMembers.length > selectedEventObj.minMembers) {
+      const updatedMembers = [...teamMembers];
+      updatedMembers.splice(index, 1);
+      setTeamMembers(updatedMembers);
+    }
+  };
+
+  const showNotification = (message, isSuccess = true) => {
+    const notification = document.createElement('div');
+    notification.className = `submit-notification ${isSuccess ? 'success' : 'error'}`;
+    notification.innerHTML = `
+      <div class="notification-content">
+        <h3>${isSuccess ? 'Success!' : 'Error!'}</h3>
+        <p>${message}</p>
+      </div>
+    `;
+    document.body.appendChild(notification);
+    
     setTimeout(() => {
-      alert(`Thank you! We'll notify you at ${email} when more details are available.`);
-      setEmail('');
-      setIsLoading(false);
-    }, 1500);
+      notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 4000);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Validation
+    const invalidEmail = teamMembers.some(member => 
+      member.email && !/^([a-zA-Z0-9._%+-]+)@kongu\.edu$/.test(member.email)
+    );
+    
+    if (invalidEmail) {
+      showNotification('All email addresses must be kongu.edu emails.', false);
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Check if all required fields are filled
+    const incompleteFields = teamMembers.some(member => 
+      !member.name || !member.rollNo || !member.dept || !member.year
+    );
+    
+    if (incompleteFields) {
+      showNotification('Please fill all required fields for all team members.', false);
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // Prepare data for Google Apps Script
+      const formData = {
+        event: selectedEvent,
+        teamId: teamId,
+        teamMembers: teamMembers,
+        timestamp: new Date().toISOString()
+      };
+
+      // Replace with your Google Apps Script Web App URL
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbw6-2qt0YJfjk_x-prqtNNgue5Rv7bE8oV3e4GAAObNmqRV-OIOAVhyGc58jGLLIOF7/exec';
+      
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      // Since we're using no-cors, we can't read the response
+      // But we assume it worked if we got here
+      showNotification(`Registration Successful! Your Team ID: ${teamId}. Confirmation email sent to team members.`);
+      
+      // Reset form
+      setSelectedEvent('');
+      setTeamMembers([{ name: '', rollNo: '', dept: '', year: '', phone: '', email: '' }]);
+      setTeamId('');
+      
+    } catch (error) {
+      console.error('Error:', error);
+      showNotification('There was an error submitting your registration. Please try again.', false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="coming-soon-container">
-      {/* Decorative elements */}
-      <div className="floating-notes">
-        <span className="note note-1">♪</span>
-        <span className="note note-2">♫</span>
-        <span className="note note-3">♬</span>
-        <span className="note note-4">♩</span>
-        
-      </div>
-      
-      <div className="content-wrapper">
-        {/* 404 Section */}
-        <div className="not-found-section" data-aos="fade-down">
-          <h1 className="error-code">404</h1>
-          <p className="not-found-text">Oops! Page not found</p>
-          <p>But we have something exciting coming soon!</p>
+    <div className="onam-event-container">
+      <div className="onam-header" data-aos="fade-down">
+        <h1>Onam Festival Events</h1>
+        <div className="pookalam-decoration">
+          <div className="pookalam-base">
+            <div className="pookalam-petal"></div>
+            <div className="pookalam-petal"></div>
+            <div className="pookalam-petal"></div>
+            <div className="pookalam-petal"></div>
+            <div className="pookalam-petal"></div>
+            <div className="pookalam-petal"></div>
+          </div>
+          <div className="pookalam-center"></div>
         </div>
-        
-        {/* Coming soon text */}
-        <div className="coming-soon-section" data-aos="fade-up">
-          <h2 className="coming-soon-title">Our Next Event is</h2>
-          <div className="animated-text">
-            {['C', 'O', 'M', 'I', 'N', 'G', ' ', 'S', 'O', 'O', 'N', '!'].map((letter, index) => (
-              <span 
-                key={index} 
-                className="letter" 
-                data-aos="zoom-in" 
-                data-aos-delay={(index + 1) * 100}
-              >
-                {letter === ' ' ? '\u00A0' : letter}
-              </span>
+        <p>Register your team for the glorious Onam celebrations</p>
+      </div>
+
+      <form className="onam-event-form" onSubmit={handleSubmit} data-aos="fade-up">
+        <div className="form-section" data-aos="fade-right">
+          <h2>Step 1: Select Event</h2>
+          <div className="event-options">
+            {events.map(event => (
+              <div key={event.id} className="event-option" data-aos="zoom-in" data-aos-delay={events.indexOf(event) * 100}>
+                <input
+                  type="radio"
+                  id={event.id}
+                  name="event"
+                  value={event.id}
+                  checked={selectedEvent === event.id}
+                  onChange={handleEventChange}
+                />
+                <label htmlFor={event.id} className="event-label">
+                  <span className="event-name">{event.name}</span>
+                  <span className="event-details">({event.minMembers}-{event.maxMembers} members)</span>
+                </label>
+              </div>
             ))}
           </div>
         </div>
-        
-        {/* Countdown timer */}
-        <div className="countdown-container" data-aos="fade-up" data-aos-delay="1300">
-          <h3 className="countdown-title">Event starts in:</h3>
-          <div className="countdown">
-            <div className="countdown-item">
-              <div className="countdown-value">{timeLeft.days}</div>
-              <div className="countdown-label">Days</div>
-            </div>
-            <div className="countdown-item">
-              <div className="countdown-value">{timeLeft.hours}</div>
-              <div className="countdown-label">Hours</div>
-            </div>
-            <div className="countdown-item">
-              <div className="countdown-value">{timeLeft.minutes}</div>
-              <div className="countdown-label">Minutes</div>
-            </div>
-            <div className="countdown-item">
-              <div className="countdown-value">{timeLeft.seconds}</div>
-              <div className="countdown-label">Seconds</div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Event details */}
-        <div className="event-details" data-aos="fade-up" data-aos-delay="1500">
-          <div className="event-card">
-            <div className="event-icon">
-              <FaMusic />
-            </div>
-            <h3 className="event-title">{eventDetails.title}</h3>
-            <p className="event-description">{eventDetails.description}</p>
-            
-            <div className="event-info">
-              
-              
-              <div className="info-item">
-                <FaMapMarkerAlt className="info-icon" />
-                <div>
-                  <div className="info-label">Venue</div>
-                  <div className="info-value">{eventDetails.venue}</div>
-                </div>
+
+        {selectedEvent && (
+          <>
+            <div className="form-section" data-aos="fade-right" data-aos-delay="200">
+              <h2>Step 2: Team Information</h2>
+              <div className="team-id-display">
+                <span className="team-id-label">Team ID:</span>
+                <span className="team-id-value">{teamId}</span>
+                <span className="team-id-note">(Automatically generated)</span>
               </div>
             </div>
-          </div>
-        </div>
-        
-        {/* Notification section */}
-        
-        
-        {/* Social links */}
-        <div className="social-links" data-aos="fade-up" data-aos-delay="1900">
-          <a href="https://www.facebook.com/kec.cultural.and.music.club" className="social-link"><FaFacebook /></a>
-          <a href="https://www.instagram.com/kec_cultural_and_music_clubs?igsh=MXhtd3JqZTQzZ2c1MQ==" className="social-link"><FaInstagram /></a>
-          <a href="mailto:kecculturalclub@kongu.edu" className="social-link"><FaMail /></a>
-        </div>
-      </div>
-      
-      {/* Footer */}
-      
+
+            <div className="form-section" data-aos="fade-right" data-aos-delay="300">
+              <h2>Step 3: Team Members</h2>
+              <div className="members-info-card">
+                <div className="info-icon">ℹ️</div>
+                <p>
+                  {selectedEvent === 'dualDance' && 'Please enter details for both team members (All details required) & Only Malayalam Songs are allowed.'}
+                  {(selectedEvent === 'pookkolam' || selectedEvent === 'rangoli' || selectedEvent === 'groupSing') && 
+                    'Please enter details for 3-5 team members (First 2 members require all details, others need basic info &  for Dance and Songs Only Malayalam Songs are allowed.)'}
+                </p>
+              </div>
+
+              <div className="members-container">
+                {teamMembers.map((member, index) => (
+                  <div key={index} className="member-card" data-aos="flip-up" data-aos-delay={index * 100}>
+                    <div className="member-header">
+                      <h3>Member {index + 1}</h3>
+                      {teamMembers.length > events.find(e => e.id === selectedEvent).minMembers && (
+                        <button 
+                          type="button" 
+                          className="remove-member-btn"
+                          onClick={() => removeMember(index)}
+                          title="Remove member"
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
+                    
+                    <div className="member-fields">
+                      <div className="form-row">
+                        <div className="input-group">
+                          <label htmlFor={`name-${index}`}>Name *</label>
+                          <input
+                            type="text"
+                            id={`name-${index}`}
+                            value={member.name}
+                            onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
+                            required
+                            placeholder="Enter full name"
+                          />
+                        </div>
+                        <div className="input-group">
+                          <label htmlFor={`rollNo-${index}`}>Roll Number *</label>
+                          <input
+                            type="text"
+                            id={`rollNo-${index}`}
+                            value={member.rollNo}
+                            onChange={(e) => handleMemberChange(index, 'rollNo', e.target.value)}
+                            required
+                            placeholder="Enter roll number"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="form-row">
+                        <div className="input-group">
+                          <label htmlFor={`dept-${index}`}>Department *</label>
+                          <select
+                            id={`dept-${index}`}
+                            value={member.dept}
+                            onChange={(e) => handleMemberChange(index, 'dept', e.target.value)}
+                            required
+                          >
+                            <option value="">Select Department</option>
+                            <option value="AIDS">AIDS</option>
+                            <option value="AIML">AIML</option>
+                            <option value="CSE">CSE</option>
+                            <option value="AUTO">AUTO</option>
+                            <option value="CHEM">CHEM</option>
+                            <option value="FT">FT</option>
+                            <option value="CIVIL">CIVIL</option>
+                            <option value="CSD">CSD</option>
+                            <option value="IT">IT</option>
+                            <option value="EEE">EEE</option>
+                            <option value="EIE">EIE</option>
+                            <option value="ECE">ECE</option>
+                            <option value="MECH">MECH</option>
+                            <option value="MTS">MTS</option>
+                            <option value="MSC">MSC</option>
+                            <option value="MCA">MCA</option>
+                            <option value="MBA">MBA</option>
+                            <option value="BSC">BSC</option>
+                            <option value="ME">ME</option>
+                            <option value="ARCH">ARCH</option>
+                          </select>
+                        </div>
+                        <div className="input-group">
+                          <label htmlFor={`year-${index}`}>Year *</label>
+                          <select
+                            id={`year-${index}`}
+                            value={member.year}
+                            onChange={(e) => handleMemberChange(index, 'year', e.target.value)}
+                            required
+                          >
+                            <option value="">Select Year</option>
+                            <option value="1">First Year</option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Third Year</option>
+                            <option value="4">Fourth Year</option>
+                            <option value="5">Fifth Year</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      {(index < 2) && (
+                        <div className="form-row">
+                          <div className="input-group">
+                            <label htmlFor={`phone-${index}`}>Contact Number *</label>
+                            <input
+                              type="tel"
+                              id={`phone-${index}`}
+                              value={member.phone}
+                              onChange={(e) => handleMemberChange(index, 'phone', e.target.value)}
+                              required
+                              placeholder="Enter phone number"
+                            />
+                          </div>
+                          <div className="input-group">
+                            <label htmlFor={`email-${index}`}>Email Address *</label>
+                            <input
+                              type="email"
+                              id={`email-${index}`}
+                              value={member.email}
+                              onChange={(e) => handleMemberChange(index, 'email', e.target.value)}
+                              required
+                              placeholder="example@kongu.edu"
+                              pattern="^[a-zA-Z0-9._%+-]+@kongu\.edu$"
+                              title="Only kongu.edu email addresses are allowed"
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {teamMembers.length < events.find(e => e.id === selectedEvent).maxMembers && (
+                <button 
+                  type="button" 
+                  className="add-member-btn"
+                  onClick={addMember}
+                  data-aos="zoom-in"
+                >
+                  <span>+ Add Another Member</span>
+                  <span className="member-count">({teamMembers.length}/{events.find(e => e.id === selectedEvent).maxMembers})</span>
+                </button>
+              )}
+            </div>
+
+            <button 
+              type="submit" 
+              className="submit-btn" 
+              data-aos="zoom-in" 
+              data-aos-delay="400"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Step 4: Submit Registration'}
+            </button>
+          </>
+        )}
+      </form>
     </div>
   );
 };
