@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../assets/styles/Hero.css';
 import image1 from '../assets/images/Hero/1.JPG';
 import image2 from '../assets/images/Hero/2.JPG';
@@ -11,6 +12,7 @@ const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [currentFont, setCurrentFont] = useState(0);
   const [showEventPopup, setShowEventPopup] = useState(true);
+  const navigate = useNavigate();
 
   // Image slides for background
   const heroImages = [
@@ -80,7 +82,7 @@ const Hero = () => {
 
   const handleEventClick = () => {
     // Navigate to events page
-    window.location.href = '/events';
+    navigate('/event');
   };
 
   return (
