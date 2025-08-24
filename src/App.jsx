@@ -33,9 +33,9 @@ function App() {
       once: true,
     });
 
-    // Simulated loading screen (replace with real data loading if needed)
-    const timer = setTimeout(() => setIsLoading(false), 3000);
-    return () => clearTimeout(timer);
+  // Simulated loading screen (replace with real data loading if needed)
+  const timer = setTimeout(() => setIsLoading(false), 1000);
+  return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
