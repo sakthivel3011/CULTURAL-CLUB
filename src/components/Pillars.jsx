@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import F1 from "../assets/images/faculty/F1.jpeg";
-import F2 from "../assets/images/faculty/F2.png";
+import F2 from "../assets/images/faculty/F2.jpg";
 import F3 from "../assets/images/faculty/F3.jpg";
 import F4 from "../assets/images/faculty/F4.JPG";
 import "../assets/styles/Pillars.css"; // Assuming you have a CSS file for styling
