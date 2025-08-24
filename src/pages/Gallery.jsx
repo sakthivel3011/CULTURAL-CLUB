@@ -29,7 +29,6 @@ import BGImage from "../assets/images/Gallery/A/5.jpg";
 import Footer from '../components/Footer.jsx';
 
 const Gallery = () => {
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoveredImage, setHoveredImage] = useState(null);
 
   useEffect(() => {
@@ -39,16 +38,8 @@ const Gallery = () => {
       easing: 'ease-out-back'
     });
 
-    // Custom cursor movement
-    const handleMouseMove = (e) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+  // No custom cursor for smoother performance
+  return () => {};
   }, []);
 
   const galleryImages = [
@@ -78,12 +69,6 @@ const Gallery = () => {
 
   return (
     <>
-      {/* Custom Cursor */}
-      <div 
-        className={`custom-cursor ${hoveredImage ? 'cursor-hover' : ''}`}
-        style={{ left: `${cursorPosition.x}px`, top: `${cursorPosition.y}px` }}
-      />
-
       <section className="modern-gallery">
         {/* Background with parallax effect */}
         <div 
@@ -108,6 +93,7 @@ const Gallery = () => {
                 className={`gallery-item ${image.size}`}
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
+                style={{ willChange: 'transform, opacity' }}
                 onMouseEnter={() => setHoveredImage(image.id)}
                 onMouseLeave={() => setHoveredImage(null)}
               >
@@ -116,7 +102,8 @@ const Gallery = () => {
                     src={image.src}
                     alt=""
                     className="gallery-image"
-                    loading="auto"
+                    loading="lazy"
+                    style={{ willChange: 'transform, opacity' }}
                   />
                 </div>
               </div>
