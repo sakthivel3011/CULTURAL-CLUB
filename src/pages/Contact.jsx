@@ -22,56 +22,57 @@ const Contact = () => {
 
   const staffContacts = [
     {
-      name: "Dr. Rajesh Kumar",
+      name: "Dr.V.N.Kowshalaya",
       position: "Faculty Advisor",
-      phone: "+91 9876543210",
-      email: "rajesh@college.edu"
+      phone: "70108 77103",
+      
     },
     {
-      name: "Prof. Sunita Sharma",
-      position: "Event Coordinator",
-      phone: "+91 9765432109",
-      email: "sunita@college.edu"
+      name: "Mr.K.V.Satheesh Kumar",
+      position: "Faculty Advisor",
+      phone: "95783 67576",
+      
     },
     {
-      name: "Dr. Amit Patel",
-      position: "Technical Head",
-      phone: "+91 9654321098",
-      email: "amit@college.edu"
+      name: "Ms.S.Keerthana",
+      position: "Faculty Advisor",
+      phone: "8870756287",
+      
+      
     },
     {
-      name: "Ms. Priya Singh",
-      position: "Cultural Coordinator",
-      phone: "+91 9543210987",
-      email: "priya@college.edu"
+      name: "Ms.S.Sharvanthika",
+      position: "Faculty Advisor",
+      phone: "8778955508",
+      
     }
   ];
 
   const studentContacts = [
     {
-      name: "Rahul Verma",
-      position: "President",
-      phone: "+91 9432109876",
+      name: "Mr.V.Mahashwin",
+      position: "Secretary",
+      phone: "9942621479",
     },
     {
-      name: "Neha Gupta",
-      position: "Vice President",
-      phone: "+91 9321098765",
+      name: "Mr.M.Sudharsan",
+      position: "Joint Secretary",
+      phone: "8667352688",
     },
     {
-      name: "Arjun Mehta",
-      position: "Technical Lead",
-      phone: "+91 9210987654",
+      name: "Mr.Krisnakumar",
+      position: "Joint Secretary",
+      phone: "9025380910",
     },
     {
-      name: "Sneha Reddy",
-      position: "Marketing Head",
-      phone: "+91 9109876543",
+      name: "Mr.S.Kavin",
+      position: "Treasurer",
+      phone: "8610177301",
     },
     {
-      name: "Vikram Singh",
-      position: "Logistics Head",
-      phone: "+91 9012345678",
+      name: "Mr.S.Sakthivel",
+      position: "Web Developer",
+      phone: "8925490989",
     }
   ];
 
