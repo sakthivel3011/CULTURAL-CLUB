@@ -10,7 +10,7 @@ const NotFoundPage = () => {
     title: "Onam 2025 Celebration",
     
     
-    venue: "College Auditorium",
+    venue: "Swami Vivekananda Seminar Hall(MECH)",
     description: "Get ready for our biggest event of the year with amazing performances, food, and fun!"
   };
 
