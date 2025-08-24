@@ -239,7 +239,7 @@ const OnamEventForm = () => {
                     <div className="member-fields">
                       <div className="form-row">
                         <div className="input-group">
-                          <label htmlFor={`name-${index}`}>Name *</label>
+                          <label htmlFor={`name-${index}`}>Name </label>
                           <input
                             type="text"
                             id={`name-${index}`}
@@ -250,7 +250,7 @@ const OnamEventForm = () => {
                           />
                         </div>
                         <div className="input-group">
-                          <label htmlFor={`rollNo-${index}`}>Roll Number *</label>
+                          <label htmlFor={`rollNo-${index}`}>Roll Number </label>
                           <input
                             type="text"
                             id={`rollNo-${index}`}
@@ -264,7 +264,7 @@ const OnamEventForm = () => {
                       
                       <div className="form-row">
                         <div className="input-group">
-                          <label htmlFor={`dept-${index}`}>Department *</label>
+                          <label htmlFor={`dept-${index}`}>Department </label>
                           <select
                             id={`dept-${index}`}
                             value={member.dept}
@@ -295,7 +295,7 @@ const OnamEventForm = () => {
                           </select>
                         </div>
                         <div className="input-group">
-                          <label htmlFor={`year-${index}`}>Year *</label>
+                          <label htmlFor={`year-${index}`}>Year </label>
                           <select
                             id={`year-${index}`}
                             value={member.year}
@@ -315,7 +315,7 @@ const OnamEventForm = () => {
                       {(index < 2) && (
                         <div className="form-row">
                           <div className="input-group">
-                            <label htmlFor={`phone-${index}`}>Contact Number *</label>
+                            <label htmlFor={`phone-${index}`}>Contact Number </label>
                             <input
                               type="tel"
                               id={`phone-${index}`}
@@ -326,7 +326,7 @@ const OnamEventForm = () => {
                             />
                           </div>
                           <div className="input-group">
-                            <label htmlFor={`email-${index}`}>Email Address *</label>
+                            <label htmlFor={`email-${index}`}>Email Address </label>
                             <input
                               type="email"
                               id={`email-${index}`}
