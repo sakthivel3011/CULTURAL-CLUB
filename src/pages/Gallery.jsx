@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../assets/styles/Gallery.css';
-import Loading from '../components/Loading.jsx';
 import F1 from "../assets/images/Gallery/A/1.JPG";
 import F2 from "../assets/images/Gallery/A/2.jpg";
 import F3 from "../assets/images/Gallery/A/3.jpg";
@@ -105,9 +104,8 @@ const Gallery = () => {
           <div className="masonry-gallery">
             {/* Preload gallery images for faster display */}
             <div style={{display: 'none'}}>
-              <img src={galleryImages[0].src} alt="" loading="eager" />
-              {galleryImages.slice(1).map((img, idx) => (
-                <img key={idx} src={img.src} alt="" loading="lazy" />
+              {galleryImages.map((img, idx) => (
+                <img key={idx} src={img.src} alt="" loading="eager" />
               ))}
             </div>
             {galleryImages.map((image, index) => (
@@ -124,7 +122,7 @@ const Gallery = () => {
                     src={image.src}
                     alt=""
                     className="gallery-image"
-                    loading="lazy"
+                    loading="eager"
                   />
                 </div>
               </div>
@@ -133,7 +131,7 @@ const Gallery = () => {
         </div>
       </section>
       
-     
+      <Footer />
     </>
   );
 };
