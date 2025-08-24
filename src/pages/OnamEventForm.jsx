@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { FaMusic, FaCalendarAlt, FaMapMarkerAlt, FaEnvelope as FaMail, FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import '../assets/styles/NotFoundPage.css'; // We'll create this CSS file
+import '../assets/styles/OnamEventForm.css'; // We'll create this CSS file
 
-const NotFoundPage = () => {
+const OnamEventForm = () => {
   // Event details
   const eventDetails = {
     title: "Onam 2025 Celebration",
@@ -178,4 +178,4 @@ const NotFoundPage = () => {
   );
 };
 
-export default NotFoundPage;
+export default OnamEventForm;
