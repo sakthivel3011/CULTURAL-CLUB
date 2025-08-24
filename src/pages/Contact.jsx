@@ -98,9 +98,7 @@ const Contact = () => {
                   <span>{contact.phone}</span>
                 </div>
                 <div className="contact-info" onClick={() => handleEmailClick(contact.email)}>
-                  <div className="icon-wrapper email-icon">
-                    <i className="fas fa-envelope"></i>
-                  </div>
+                  
                   <span>{contact.email}</span>
                 </div>
               </div>
