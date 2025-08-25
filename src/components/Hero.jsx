@@ -82,7 +82,7 @@ const Hero = () => {
 
   const handleEventClick = () => {
     // Navigate to events page
-    navigate('/Events');
+    navigate('/Event');
   };
 
   // Preload all images in the background
