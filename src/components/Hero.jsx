@@ -82,16 +82,23 @@ const Hero = () => {
 
   const handleEventClick = () => {
     // Navigate to events page
-    navigate('/OfficeBearers');
+    navigate('/Events');
   };
+
+  // Preload all images in the background
+  useEffect(() => {
+    heroImages.forEach(src => {
+      const img = new window.Image();
+      img.src = src;
+    });
+  }, []);
 
   return (
     <section className="hero">
       {/* Preload hero images for faster display */}
       <div style={{display: 'none'}}>
-        <img src={heroImages[0]} alt="" loading="eager" />
-        {heroImages.slice(1).map((img, idx) => (
-          <img key={idx} src={img} alt="" loading="lazy" />
+        {heroImages.map((img, idx) => (
+          <img key={idx} src={img} alt="" loading={idx === 0 ? "eager" : "lazy"} />
         ))}
       </div>
       {/* Background images with transition */}
