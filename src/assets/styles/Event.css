@@ -199,11 +199,7 @@ header p {
   color: var(--gold);
 }
 
-.event-date {
-  font-size: 0.9rem;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
+
 
 .event-description {
   font-size: 0.95rem;
