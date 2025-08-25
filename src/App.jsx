@@ -18,6 +18,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Help from "./pages/Help";
 import OnamEventForm from "./pages/OnamEventForm";
+import Event from "./pages/Event";
 
 import "./index.css";
 import AOS from "aos";
@@ -33,7 +34,7 @@ function App() {
       once: true,
     });
 
-    // Simulated loading screen (replace with real data loading if needed)
+  // Simulated loading screen (replace with real data loading if needed)
   const timer = setTimeout(() => setIsLoading(false), 1000);
   return () => clearTimeout(timer);
   }, []);
@@ -68,7 +69,6 @@ function App() {
         {/* If you don’t want /enthusia and /events, remove them */}
         <Route path="/enthusia" element={<OnamEventForm />} />
         <Route path="/event" element={<Event />} />
-        <Route path="/event" element={<EventPage />} />
         <Route path="/OnamEventForm" element={<OnamEventForm />} />
         {/* Catch-all for undefined routes */}
         <Route path="*" element={<NotFound />} />
