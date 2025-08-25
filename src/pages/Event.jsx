@@ -235,7 +235,7 @@ const EventPage = () => {
       const now = new Date();
       const eventDate = new Date(event.date);
       const eventEndDate = event.endDate ? new Date(event.endDate) : null;
-      const isRegisterOpen = now >= eventDate && (!eventEndDate || now < eventEndDate);
+      const isRegisterOpen = event.category === 'ongoing' && now >= eventDate && (!eventEndDate || now < eventEndDate);
       return (
         <div 
           key={event.id} 
@@ -315,11 +315,17 @@ const EventPage = () => {
             <h2>{selectedEvent.title}</h2>
             <p className="popup-date">{new Date(selectedEvent.date).toLocaleDateString('en-GB')}</p>
             <p className="popup-description">{selectedEvent.description}</p>
-            {selectedEvent.category !== 'completed' && (
+            {selectedEvent.category === 'ongoing' && (
               <div className="popup-countdown">
-                <h3>{selectedEvent.category === 'ongoing' ? 'Time Remaining:' : 'Time Until Event:'}</h3>
+                <h3>Time Remaining:</h3>
                 {renderCountdown(selectedEvent)}
                 <a href="/OnamEventForm" className="register-btn center-btn">Register Now</a>
+              </div>
+            )}
+            {selectedEvent.category === 'upcoming' && (
+              <div className="popup-countdown">
+                <h3>Time Until Event:</h3>
+                {renderCountdown(selectedEvent)}
               </div>
             )}
           </div>
